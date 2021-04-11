@@ -9,8 +9,13 @@
  * For n = 152, the output should be 52
  *
  */
-function deleteDigit(/* n */) {
-  throw new Error('Not implemented');
+function deleteDigit(n) {
+  const numVariations = [];
+  const s = String(n);
+  for (let i = 0; i < s.length; i++) {
+    numVariations.push(Number(s.slice(0, i) + s.slice(i + 1, s.length)));
+  }
+  return numVariations.reduce((max, num) => (num > max ? num : max), 0);
 }
 
 module.exports = deleteDigit;
