@@ -21,8 +21,43 @@
  *  [1, 1, 1]
  * ]
  */
-function minesweeper(/* matrix */) {
-  throw new Error('Not implemented');
+function minesweeper(matrix) {
+  const matrixNum = matrix.map((row) => new Array(row.length).fill(0));
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < matrix[0].length; j++) {
+      if (matrix[i][j] === true) {
+        // conditions prevent operations with undefined cells in 'border cases'
+        // when the matrix element has less than 8 neighboring cells
+        if (i - 1 >= 0) {
+          matrixNum[i - 1][j]++;
+          if (j - 1 >= 0) {
+            matrixNum[i - 1][j - 1]++;
+          }
+          if (j + 1 < matrix[0].length) {
+            matrixNum[i - 1][j + 1]++;
+          }
+        }
+
+        if (i + 1 < matrix.length) {
+          matrixNum[i + 1][j]++;
+          if (j - 1 >= 0) {
+            matrixNum[i + 1][j - 1]++;
+          }
+          if (j + 1 < matrix[0].length) {
+            matrixNum[i + 1][j + 1]++;
+          }
+        }
+
+        if (j + 1 < matrix[0].length) {
+          matrixNum[i][j + 1]++;
+        }
+        if (j - 1 >= 0) {
+          matrixNum[i][j - 1]++;
+        }
+      }
+    }
+  }
+  return matrixNum;
 }
 
 module.exports = minesweeper;
