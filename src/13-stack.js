@@ -11,16 +11,26 @@
  *
  */
 class Stack {
-  push(/* element */) {
-    throw new Error('Not implemented');
+  constructor() {
+    this.stack = [];
+    this.lastElementIndex = -1;
+    this.isUndefined = () => (this.lastElementIndex === -1 ? undefined : '');
+  }
+
+  push(element) {
+    this.stack.splice(this.lastElementIndex + 1, 0, element);
+    this.lastElementIndex++;
   }
 
   pop() {
-    throw new Error('Not implemented');
+    this.isUndefined();
+    this.lastElementIndex--;
+    return this.stack.splice(this.lastElementIndex + 1, 1)[0];
   }
 
   peek() {
-    throw new Error('Not implemented');
+    this.isUndefined();
+    return this.stack[this.lastElementIndex];
   }
 }
 
