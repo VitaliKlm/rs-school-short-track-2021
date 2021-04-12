@@ -17,8 +17,26 @@
  * }
  */
 
-function removeKFromList(/* l, k */) {
-  throw new Error('Not implemented');
+function removeKFromList(l, k) {
+  let prevNode = null;
+  let head = l;
+  let currentNode = head;
+  while (currentNode) {
+    if (currentNode.value === k) {
+      // when remove node from the center of the NodeList
+      // have to replace 'next' pointer from current to previous node
+      if (prevNode) {
+        prevNode.next = currentNode.next;
+      } else {
+        // when remove node from the top of the NodeList
+        // have to remove 'head' pointer of the NodeList to next node
+        head = currentNode.next;
+      }
+    }
+    prevNode = currentNode;
+    currentNode = currentNode.next;
+  }
+  return head;
 }
 
 module.exports = removeKFromList;
