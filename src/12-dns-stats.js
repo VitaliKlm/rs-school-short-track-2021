@@ -20,8 +20,29 @@
  * }
  *
  */
-function getDNSStats(/* domains */) {
-  throw new Error('Not implemented');
+function getDNSStats(domains) {
+  const dnsStats = {};
+  let dnsLevelsCombin;
+  let dnsLevels;
+  domains.forEach((fullDomainName) => {
+    // turn domain in template array 'dnsLevels'
+    // 'dnsLevels' consist of Object key names
+    dnsLevels = fullDomainName.split('.')
+      .reverse()
+      .join(' .')
+      .split(' ');
+    // 'dnsLevelsCombin' are combinations of 1 or more dns levels
+    dnsLevelsCombin = '';
+    dnsLevels.forEach((dnsLevel) => {
+      dnsLevelsCombin += dnsLevel;
+      if ([`.${dnsLevelsCombin}`] in dnsStats) {
+        dnsStats[`.${dnsLevelsCombin}`]++;
+      } else {
+        dnsStats[`.${dnsLevelsCombin}`] = 1;
+      }
+    });
+  });
+  return dnsStats;
 }
 
 module.exports = getDNSStats;
